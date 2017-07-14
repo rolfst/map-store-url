@@ -90,11 +90,6 @@ const initExpress = (app) => {
         console.error('uncaughtException', addresses, exception);
         throw exception;
     });
-
-
-    //init db's
-    getElasticsearch();
-
 };
 
 
@@ -114,16 +109,6 @@ const getCountryWhitelist = function(){
     return settings.countryWhitelist || [];
 };
 
-const getElasticsearch = function(){
-    if(elasticsearch)
-        return elasticsearch;
-
-    const client = require('elasticsearch');
-    elasticsearch = new client.Client(settings.esCluster);
-    return elasticsearch;
-};
-
-
 
 module.exports = {
     getSettings: getSettings,
@@ -131,6 +116,5 @@ module.exports = {
     initExpress: initExpress,
     getEnv: getEnv,
     getOperators: getOperators,
-    getCountryWhitelist: getCountryWhitelist,
-    getElasticsearch: getElasticsearch
+    getCountryWhitelist: getCountryWhitelist
 };

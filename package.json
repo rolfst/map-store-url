@@ -8,7 +8,7 @@
     "url": "git+https://github.com/Metrological/map-url-store.git"
   },
   "scripts": {
-      "dev": "NODE_ENV=dev server-debug.js"
+    "dev": "NODE_ENV=dev server-debug.js"
   },
   "keywords": [
     "express",
@@ -18,12 +18,13 @@
   "author": "Rolf Strijdhorst",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.2",
-    "compression": "^1.7.0",
+    "bluebird": "~3.5.0",
+    "body-parser": "~1.17.2",
+    "compression": "~1.7.0",
+    "log4js": "~2.0.1",
     "express": "~4.15.3",
+    "moment": "~2.18.1",
     "express-request-logger": "git+ssh://git@github.com:Metrological/express-request-logger",
-    "log4js": "^2.0.1",
     "metrological-redis": "git+ssh://git@github.com:Metrological/node-metrological-redis",
     "redis-ip-useragent-firewall": "git+ssh://git@github.com:Metrological/express-redis-ip-useragent-firewall"
   }

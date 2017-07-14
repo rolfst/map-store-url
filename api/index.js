@@ -1,5 +1,6 @@
 const Promise = require('bluebird');
 const _ = require('lodash');
+const moment = require('moment');
 const redis = require('metrological-redis');
 const ExpressRedisFirewall = require('redis-ip-useragent-firewall');
 const config = require('../config');
@@ -30,6 +31,7 @@ const storeInRedis = async (container) => {
     }
     const allowedToWrite = await writeClient.setnxAsync(`${settings.connectRedisSequenceKey}-${key}`, JSON.stringify(container));
     if (allowedToWrite) {
+		container.counter = moment().valueOf();
         await writeClient.expireAsync(`${settings.connectRedisSequenceKey}-${key}`, settings.connectKeyTTL);
         return container;
     }
