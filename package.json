@@ -1,0 +1,30 @@
+{
+  "name": "map-url-store",
+  "version": "1.0.0",
+  "description": "Url store-keygenerator",
+  "main": "NODE_ENV=production server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Metrological/map-url-store.git"
+  },
+  "scripts": {
+      "dev": "NODE_ENV=dev server-debug.js"
+  },
+  "keywords": [
+    "express",
+    "websocket",
+    "connect"
+  ],
+  "author": "Rolf Strijdhorst",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "express": "~4.15.3",
+    "express-request-logger": "git+ssh://git@github.com:Metrological/express-request-logger",
+    "log4js": "^2.0.1",
+    "metrological-redis": "git+ssh://git@github.com:Metrological/node-metrological-redis",
+    "redis-ip-useragent-firewall": "git+ssh://git@github.com:Metrological/express-redis-ip-useragent-firewall"
+  }
+}

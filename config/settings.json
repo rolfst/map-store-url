@@ -1,0 +1,46 @@
+{
+    "all": {
+        "workers": 1,
+        "port": 5555,
+        "forceSSL": false,
+        "log4js": {
+            "appenders": [{
+                "type": "console"
+            }, {
+                "type": "logLevelFilter",
+                "level": "WARN",
+                "appender": {
+                    "type": "smtp",
+                    "recipients": "backend.notification@metrological.com",
+                    "sender": "noreply@metrological.com",
+                    "sendInterval": 10,
+                    "transport": {"plugin": "direct"}
+                }
+            }],
+            "replaceConsole": true
+        },
+        "connectRedisSequenceKey": "map-connect-key",
+        "keySpace": -6,
+        "connectKeyTTL": 300,
+        "firewallOptions": {}
+    },
+    "dev": {
+        "useFakeHousehold": true,
+        "checkIp": false,
+        "log4js": false,
+        "firewallOptions": {"debug": true, "testMode": true}
+    },
+    "backendTests": {
+        "checkIp": false,
+        "port": 5555,
+        "log4js": null
+    },
+    "test": {
+        "port": 80
+    },
+    "production": {
+        "workers": 2,
+        "port": 80,
+        "forceSSL": false
+    }
+}
