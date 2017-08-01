@@ -51,15 +51,23 @@ const handleGenerateConnectCode = (request, response) => {
     const options = settings.firewallOptions;
     const fw = new ExpressRedisFirewall(redisReadClient, options);
     const isRequestAllowed = Promise.promisify(fw.middleware, {context: fw });
-    let urlToStore = params.url;
+
+    const urlToStore = params.url;
+    const isWithinWhitelistedDomains = () => {
+        const included = settings.whitelistedDomains.filter((str) => urlToStore.includes(str));
+         if (included.length > 0) return true;
+
+         return Promise.reject(new Error('domain doesn\'t belong to authorised domains'));
+    };
 
     return isRequestAllowed(request, response)
+        .then(isWithinWhitelistedDomains)
         .then(() => {
             return storeInRedis({ url: urlToStore }).then((result) => response.json(result));
         })
         .catch((err) => {
             console.log(err);
-            throw err;
+            return response.status('404').send(err.message);
         });
 };
 
