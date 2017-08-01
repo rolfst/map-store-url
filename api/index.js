@@ -11,8 +11,8 @@ const readClient = Promise.promisifyAll(redisReadClient);
 const writeClient = Promise.promisifyAll(redisWriteClient);
 
 const loadRoutes = (app) => {
-    app.post('/generateconnectcode', handleGenerateConnectCode);
-    app.get('/consumeconnectcode', handleConsumeConnectCode);
+    app.post('/code', handleGenerateConnectCode);
+    app.get('/code/:connectKey', handleConsumeConnectCode);
 
     app.all('*', (req,res) => res.status(404).end());
 };
@@ -47,7 +47,7 @@ const storeInRedis = async (container) => {
  * @return object with connectKey and url
  */
 const handleGenerateConnectCode = (request, response) => {
-    const params = _.merge(request.query, request.body);
+    const params = _.merge(request.query, request.body, request.params);
     const options = settings.firewallOptions;
     const fw = new ExpressRedisFirewall(redisReadClient, options);
     const isRequestAllowed = Promise.promisify(fw.middleware, {context: fw });
@@ -70,7 +70,7 @@ const handleGenerateConnectCode = (request, response) => {
  * @return object with url
  */
 const handleConsumeConnectCode = (request, response) => {
-    const params = _.merge(request.query, request.body);
+    const params = _.merge(request.query, request.body, request.params);
 
     return readClient.getAsync(`${settings.connectRedisSequenceKey}-${params.connectKey}`)
         .then((container) => {
