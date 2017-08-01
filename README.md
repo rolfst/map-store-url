@@ -12,12 +12,11 @@ Everyone that knows the code should be able to enter the code so also unknown ad
 
 Endpoints:  
 ```
-  POST /generateconnectcode 
+  POST /connect
     Param: url 
     Context: known client. 
 	return: url, connectKey, counter
-  GET /consummeconnectcode
-  	Param: connectKey 
-	return: url, connectKey  
+  GET /connect/:connectKey
+	return: url, connectKey
 ```
 
